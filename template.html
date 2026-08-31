@@ -894,12 +894,12 @@ render();
   for(const url of endpoints){
     try{
       const ctrl = 'AbortController' in window ? new AbortController() : null;
-      const to = ctrl ? setTimeout(()=>ctrl.abort(), 20000) : null;
+      const to = ctrl ? setTimeout(()=>ctrl.abort(), 45000) : null;
       const r = await fetch(url, {cache:'no-store', signal: ctrl && ctrl.signal});
       if(to) clearTimeout(to);
       if(!r.ok) continue;
       const fresh = await r.json();
-      if(!fresh || !fresh.sold || !fresh.forSale || !fresh.sold.frederiksberg) continue;
+      if(!fresh || !fresh.sold || !fresh.forSale || !Array.isArray(fresh.sold.frederiksberg) || !fresh.sold.frederiksberg.length) continue;
       DATA.sold = fresh.sold; DATA.forSale = fresh.forSale;
       DATA.generated = fresh.generated || new Date().toISOString();
       DATA.source = fresh.source || DATA.source;
