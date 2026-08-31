@@ -886,8 +886,11 @@ render();
    On plain static hosting neither exists -> the embedded snapshot stays. ------ */
 (async function liveRefresh(){
   const dot=document.getElementById('m-dot');
+  const dateEl=document.getElementById('m-date');
+  const snapshotText=dateEl.textContent;
   const endpoints=['/api/live','live.json'];
   dot.className='dot-load';
+  dateEl.textContent='henter friske tal fra boligsiden …';
   for(const url of endpoints){
     try{
       const ctrl = 'AbortController' in window ? new AbortController() : null;
@@ -904,6 +907,7 @@ render();
       return;
     }catch(e){ /* try next endpoint */ }
   }
-  dot.className='dot-idle';   // keep the embedded snapshot
+  dot.className='dot-idle';                 // both endpoints failed —
+  dateEl.textContent=snapshotText;          // restore the embedded snapshot label
 })();
 </script>
