@@ -1,0 +1,9 @@
+{
+  "name": "boligsiden-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dashboard: store ejerlejligheder (100 m²+) i Frederiksberg og postnr. 1799 — solgt og til salg. Data fra boligsiden.dk.",
+  "engines": {
+    "node": ">=18"
+  }
+}

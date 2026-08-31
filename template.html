@@ -1,0 +1,909 @@
+<title>Store lejligheder · Frederiksberg &amp; 1799</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --page:#eceef0; --surface:#fbfcfc; --surface-2:#f4f6f7;
+  --ink:#131a1f; --ink-2:#4a5560; --muted:#7b858e;
+  --grid:#e2e5e8; --baseline:#c2c9ce; --border:rgba(19,26,31,.11);
+  --accent:#215fbf; --accent-ink:#1b4f9e;
+  --sold:#2a78d6; --sold-soft:#cfe2f8;
+  --sale:#e0611f; --sale-soft:#f8ddca;
+  --good:#006b1f; --bad:#c4382f;
+  --shadow:0 1px 2px rgba(19,26,31,.04),0 8px 24px -12px rgba(19,26,31,.14);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --page:#0c1014; --surface:#141a20; --surface-2:#1b232a;
+    --ink:#e9edf0; --ink-2:#b1bac2; --muted:#899299;
+    --grid:#252d34; --baseline:#333c44; --border:rgba(255,255,255,.11);
+    --accent:#6aa5ee; --accent-ink:#9cc4f4;
+    --sold:#4a90e2; --sold-soft:#1e3350;
+    --sale:#e8763a; --sale-soft:#43291a;
+    --good:#3fbb54; --bad:#e8695f;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --page:#0c1014; --surface:#141a20; --surface-2:#1b232a;
+  --ink:#e9edf0; --ink-2:#b1bac2; --muted:#899299;
+  --grid:#252d34; --baseline:#333c44; --border:rgba(255,255,255,.11);
+  --accent:#6aa5ee; --accent-ink:#9cc4f4;
+  --sold:#4a90e2; --sold-soft:#1e3350;
+  --sale:#e8763a; --sale-soft:#43291a;
+  --good:#3fbb54; --bad:#e8695f;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--page); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:"Fraunces",Georgia,"Times New Roman",serif;font-weight:500;line-height:1.12;text-wrap:balance;margin:0}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+
+/* ---- header ---- */
+header.top{padding:clamp(40px,7vw,84px) 0 28px}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+header.top h1{font-size:clamp(34px,6.2vw,60px);margin:14px 0 0;letter-spacing:-.01em}
+header.top .lede{max-width:60ch;margin:18px 0 0;color:var(--ink-2);font-size:clamp(15px,1.6vw,17px)}
+.meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 22px;font-size:12.5px;color:var(--muted)}
+.meta b{color:var(--ink-2);font-weight:600}
+.meta #m-date{color:var(--ink-2);font-weight:600}
+#m-dot{display:inline-block;width:7px;height:7px;border-radius:50%;vertical-align:middle;margin-right:3px}
+#m-dot.dot-idle{background:var(--baseline)}
+#m-dot.dot-load{background:var(--sale);animation:pulse 1s ease-in-out infinite}
+#m-dot.dot-live{background:var(--good)}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){#m-dot.dot-load{animation:none}}
+
+/* ---- sticky control bar ---- */
+.controls{position:sticky;top:0;z-index:30;background:var(--page);
+  background:color-mix(in srgb,var(--page) 90%,transparent);
+  backdrop-filter:blur(8px);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  margin-top:26px}
+.controls .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;padding-top:12px;padding-bottom:12px}
+.ctl-group{display:flex;align-items:center;gap:9px}
+.ctl-label{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.seg button{font:inherit;font-size:13px;border:0;background:transparent;color:var(--ink-2);
+  padding:5px 12px;border-radius:6px;cursor:pointer;white-space:nowrap;transition:background .12s,color .12s}
+.seg button[a-current="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow);font-weight:600}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---- sections ---- */
+section.block{padding:clamp(40px,6vw,68px) 0}
+.sec-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:16px}
+.sec-head h2{font-size:clamp(24px,3.4vw,34px)}
+.sec-head .tag{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:4px 9px;border-radius:999px}
+.tag.sold{background:var(--sold-soft);color:var(--accent-ink)}
+.tag.sale{background:var(--sale-soft);color:var(--sale)}
+.sec-head .count{margin-left:auto;color:var(--muted);font-size:13px}
+
+/* ---- KPI ---- */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px 16px 15px;box-shadow:var(--shadow)}
+.kpi .k-label{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.02em}
+.kpi .k-val{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:clamp(19px,2.3vw,24px);
+  font-weight:500;margin-top:8px;letter-spacing:-.02em}
+.kpi .k-sub{font-size:12px;color:var(--muted);margin-top:3px}
+@media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}}
+
+/* ---- charts ---- */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 18px 14px;box-shadow:var(--shadow);min-width:0}
+.card.wide{grid-column:1/-1}
+.card h3{font-size:16px;font-weight:600}
+.card .c-sub{font-size:12.5px;color:var(--muted);margin-top:3px}
+.card figure{margin:12px 0 0}
+svg.chart{display:block;width:100%;height:auto;overflow:visible}
+@media(max-width:760px){.charts{grid-template-columns:1fr}}
+
+.axis text{fill:var(--muted);font-size:11px;font-family:"IBM Plex Mono",monospace}
+.grid line{stroke:var(--grid);stroke-width:1}
+.baseline{stroke:var(--baseline);stroke-width:1}
+.bar{transition:opacity .12s}
+.bar:hover{opacity:.72}
+.dot{transition:r .12s}
+
+/* tooltip */
+.tip{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--page);
+  font-size:12px;line-height:1.45;padding:8px 10px;border-radius:8px;box-shadow:var(--shadow);
+  opacity:0;transform:translateY(3px);transition:opacity .1s;max-width:230px}
+.tip.on{opacity:1;transform:none}
+.tip .t-h{font-weight:600;font-family:"IBM Plex Mono",monospace;margin-bottom:2px}
+.tip .t-r{display:flex;justify-content:space-between;gap:14px}
+.tip .t-r span:last-child{font-family:"IBM Plex Mono",monospace}
+
+/* legend */
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2);margin-top:10px}
+.legend .lg{display:flex;align-items:center;gap:6px}
+.legend .sw{width:11px;height:11px;border-radius:3px}
+
+/* compare strip */
+.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.compare .cx{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;box-shadow:var(--shadow)}
+.compare .cx .t{font-size:12px;color:var(--muted);font-weight:600}
+.compare .cx .rowline{display:flex;justify-content:space-between;align-items:baseline;margin-top:9px;font-size:13px}
+.compare .cx .rowline .v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:15px}
+.compare .cx .delta{font-size:12px;margin-top:8px;color:var(--ink-2)}
+@media(max-width:720px){.compare{grid-template-columns:1fr}}
+
+/* ---- filter row ---- */
+.filter-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:22px;
+  padding:13px 15px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px}
+.filter-row .fg{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);white-space:nowrap}
+.filter-row label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.filter-row input[type=number]{width:72px;font:inherit;font-size:12.5px;padding:5px 7px;border:1px solid var(--border);
+  border-radius:7px;background:var(--surface);color:var(--ink);font-variant-numeric:tabular-nums}
+.filter-row select{font:inherit;font-size:12.5px;padding:5px 8px;border:1px solid var(--border);border-radius:7px;
+  background:var(--surface);color:var(--ink);max-width:150px}
+.filter-row input:focus-visible,.filter-row select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.filter-row .rs{margin-left:auto;display:flex;align-items:center;gap:10px}
+.filter-row .fcount{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+@media(max-width:640px){.filter-row .rs{margin-left:0;width:100%;justify-content:space-between}}
+
+/* ---- table ---- */
+.table-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 10px}
+.table-tools input[type=search]{font:inherit;font-size:13px;padding:7px 11px;border:1px solid var(--border);
+  border-radius:8px;background:var(--surface);color:var(--ink);min-width:180px}
+.table-tools input:focus-visible,.table-tools select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.table-tools label{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;
+  letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.table-tools select{font:inherit;font-size:12.5px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;
+  background:var(--surface);color:var(--ink)}
+.table-tools .spacer{margin-left:auto}
+.btn{font:inherit;font-size:12.5px;padding:7px 12px;border:1px solid var(--border);border-radius:8px;
+  background:var(--surface);color:var(--ink-2);cursor:pointer}
+.btn:hover{color:var(--ink)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.table-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+thead th{position:sticky;top:0;background:var(--surface-2);text-align:right;padding:10px 12px;
+  font-weight:600;color:var(--ink-2);white-space:nowrap;cursor:pointer;border-bottom:1px solid var(--border);font-size:12px}
+thead th:first-child,tbody td:first-child{text-align:left}
+thead th[aria-sort="ascending"]::after{content:" ▲";color:var(--accent)}
+thead th[aria-sort="descending"]::after{content:" ▼";color:var(--accent)}
+tbody td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--surface-2)}
+tbody td.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+tbody td:first-child a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--border)}
+tbody td:first-child a:hover{border-color:var(--accent);color:var(--accent-ink)}
+.pill{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
+.pill.fam{background:var(--sale-soft);color:var(--sale);border-color:transparent}
+.more-row{text-align:center;padding:12px}
+.up{color:var(--good)} .down{color:var(--bad)}
+
+footer{padding:44px 0 64px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--border)}
+footer a{color:var(--accent-ink)}
+.note{background:var(--surface-2);border:1px solid var(--border);border-left:3px solid var(--sale);
+  border-radius:8px;padding:11px 13px;font-size:12.5px;color:var(--ink-2);margin-top:16px}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">Boligsiden · ejerlejligheder · 100 m²+</div>
+  <h1>Store lejligheder i Frederiksberg &amp; postnr. 1799</h1>
+  <p class="lede">Kvadratmeterpris, størrelse og samlet pris for alle ejerlejligheder på <b>over 100 m²</b>
+    — solgt fra januar 2025 og frem, og dem der er til salg lige nu. Vælg område i bjælken herunder,
+    og filtrér eller sortér hvert afsnit på størrelse, m²-pris og dato.</p>
+  <div class="meta">
+    <span><b id="m-sold">–</b> solgte handler</span>
+    <span><b id="m-sale">–</b> til salg nu</span>
+    <span id="m-status"><span id="m-dot" class="dot-idle"></span> <span id="m-date">–</span></span>
+    <span>Kilde: <b>boligsiden.dk</b></span>
+  </div>
+</header>
+</div>
+
+<div class="controls">
+  <div class="wrap">
+    <div class="ctl-group">
+      <span class="ctl-label">Område</span>
+      <div class="seg" id="seg-area" role="group" aria-label="Vælg område">
+        <button data-v="begge" a-current="true">Begge</button>
+        <button data-v="frederiksberg">Frederiksberg</button>
+        <button data-v="1799">Postnr. 1799</button>
+      </div>
+    </div>
+    <div class="ctl-group">
+      <span class="ctl-label">Solgte handler</span>
+      <div class="seg" id="seg-handel" role="group" aria-label="Vælg handelstype">
+        <button data-v="alle" a-current="true">Alle</button>
+        <button data-v="fri">Kun fri handel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+<!-- ============ SOLGT ============ -->
+<section class="block wrap" id="sec-sold">
+  <div class="sec-head">
+    <span class="tag sold">Solgt</span>
+    <h2>Solgt siden januar 2025</h2>
+    <span class="count" id="sold-range">–</span>
+  </div>
+
+  <div class="filter-row" id="filt-sold">
+    <div class="fg"><label for="fs-amin">Størrelse</label>
+      <input type="number" id="fs-amin" min="100" step="5" placeholder="100"> –
+      <input type="number" id="fs-amax" step="5" placeholder="∞"> m²</div>
+    <div class="fg"><label for="fs-mmin">m²-pris</label>
+      <input type="number" id="fs-mmin" step="1000" placeholder="0"> –
+      <input type="number" id="fs-mmax" step="1000" placeholder="∞"> kr</div>
+    <div class="fg"><label for="fs-from">Solgt fra</label>
+      <select id="fs-from"></select></div>
+    <div class="rs"><span class="fcount" id="fs-count"></span>
+      <button class="btn" id="fs-reset">Nulstil</button></div>
+  </div>
+
+  <div class="kpis" id="kpi-sold"></div>
+
+  <div class="charts">
+    <div class="card wide">
+      <h3>Antal salg pr. måned</h3>
+      <div class="c-sub">Hver bjælke er én måneds registrerede handler. Hold musen over for detaljer.</div>
+      <figure><svg class="chart" id="ch-vol" viewBox="0 0 800 300" role="img" aria-label="Søjlediagram: antal salg pr. måned"></svg></figure>
+      <p class="c-sub" id="vol-lag"></p>
+    </div>
+    <div class="card">
+      <h3>Median m²-pris pr. måned</h3>
+      <div class="c-sub">Kr. pr. m² boligareal, midterste frie handel i måneden. Endnu ikke fuldt tinglyste måneder udelades.</div>
+      <figure><svg class="chart" id="ch-trend" viewBox="0 0 400 300" role="img" aria-label="Områdediagram: median kvadratmeterpris pr. måned"></svg></figure>
+    </div>
+    <div class="card">
+      <h3>Fordeling af m²-pris</h3>
+      <div class="c-sub">Antal solgte lejligheder i hvert prisinterval.</div>
+      <figure><svg class="chart" id="ch-hist-sold" viewBox="0 0 400 300" role="img" aria-label="Histogram: fordeling af kvadratmeterpris for solgte"></svg></figure>
+    </div>
+  </div>
+
+  <div class="note" id="fam-note"></div>
+
+  <div class="table-tools">
+    <input type="search" id="q-sold" placeholder="Søg adresse eller postnr.">
+    <label for="sort-sold">Sortér
+      <select id="sort-sold">
+        <option value="date">Salgsdato</option>
+        <option value="area">Størrelse</option>
+        <option value="price">Samlet pris</option>
+        <option value="m2eff">m²-pris</option>
+        <option value="addr">Adresse</option>
+      </select>
+    </label>
+    <button class="btn" id="dir-sold" aria-label="Skift sorteringsretning">↓ Faldende</button>
+    <span class="spacer"></span>
+    <button class="btn" id="csv-sold">Kopiér som CSV</button>
+  </div>
+  <div class="table-scroll">
+    <table id="tbl-sold">
+      <thead><tr>
+        <th data-k="addr">Adresse</th>
+        <th data-k="zip">Postnr.</th>
+        <th data-k="date" aria-sort="descending">Solgt</th>
+        <th data-k="area">Størrelse</th>
+        <th data-k="price">Samlet pris</th>
+        <th data-k="m2eff">m²-pris</th>
+        <th data-k="type">Handel</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ TIL SALG ============ -->
+<section class="block wrap" id="sec-sale">
+  <div class="sec-head">
+    <span class="tag sale">Til salg</span>
+    <h2>Til salg lige nu</h2>
+    <span class="count" id="sale-range">–</span>
+  </div>
+
+  <div class="filter-row" id="filt-sale">
+    <div class="fg"><label for="fl-amin">Størrelse</label>
+      <input type="number" id="fl-amin" min="100" step="5" placeholder="100"> –
+      <input type="number" id="fl-amax" step="5" placeholder="∞"> m²</div>
+    <div class="fg"><label for="fl-mmin">m²-pris</label>
+      <input type="number" id="fl-mmin" step="1000" placeholder="0"> –
+      <input type="number" id="fl-mmax" step="1000" placeholder="∞"> kr</div>
+    <div class="fg"><label for="fl-dommax">Maks. liggetid</label>
+      <input type="number" id="fl-dommax" step="10" placeholder="∞"> dage</div>
+    <div class="rs"><span class="fcount" id="fl-count"></span>
+      <button class="btn" id="fl-reset">Nulstil</button></div>
+  </div>
+
+  <div class="kpis" id="kpi-sale"></div>
+
+  <div class="charts">
+    <div class="card">
+      <h3>Fordeling af m²-pris</h3>
+      <div class="c-sub">Antal udbudte lejligheder i hvert prisinterval (kontantpris).</div>
+      <figure><svg class="chart" id="ch-hist-sale" viewBox="0 0 400 300" role="img" aria-label="Histogram: fordeling af kvadratmeterpris for udbudte"></svg></figure>
+    </div>
+    <div class="card">
+      <h3>Størrelse mod m²-pris</h3>
+      <div class="c-sub">Hvert punkt er én bolig til salg. Store lejligheder har ofte lavere m²-pris.</div>
+      <figure><svg class="chart" id="ch-scatter" viewBox="0 0 400 300" role="img" aria-label="Punktdiagram: størrelse mod kvadratmeterpris"></svg></figure>
+    </div>
+  </div>
+
+  <div class="compare" id="compare"></div>
+
+  <div class="table-tools">
+    <input type="search" id="q-sale" placeholder="Søg adresse eller postnr.">
+    <label for="sort-sale">Sortér
+      <select id="sort-sale">
+        <option value="price">Udbudspris</option>
+        <option value="area">Størrelse</option>
+        <option value="m2">m²-pris</option>
+        <option value="daysOnMarket">Liggetid</option>
+        <option value="priceChangePct">Prisændring</option>
+        <option value="yearBuilt">Opført</option>
+      </select>
+    </label>
+    <button class="btn" id="dir-sale" aria-label="Skift sorteringsretning">↑ Stigende</button>
+    <span class="spacer"></span>
+    <button class="btn" id="csv-sale">Kopiér som CSV</button>
+  </div>
+  <div class="table-scroll">
+    <table id="tbl-sale">
+      <thead><tr>
+        <th data-k="addr">Adresse</th>
+        <th data-k="zip">Postnr.</th>
+        <th data-k="area">Størrelse</th>
+        <th data-k="price" aria-sort="ascending">Udbudspris</th>
+        <th data-k="m2">m²-pris</th>
+        <th data-k="rooms">Vær.</th>
+        <th data-k="yearBuilt">Opført</th>
+        <th data-k="energy">Energi</th>
+        <th data-k="daysOnMarket">Liggetid</th>
+        <th data-k="priceChangePct">Prisændring</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+</main>
+
+<div class="wrap">
+<footer>
+  <p>Kildedata fra <a href="https://www.boligsiden.dk" target="_blank" rel="noopener">boligsiden.dk</a>
+  via deres offentlige søge-API. Omfatter ejerlejligheder med registreret boligareal på 100 m² eller derover.
+  «Solgt» dækker tinglyste handler med salgsdato i 2025–2026; de seneste måneder er ufuldstændige pga.
+  forsinkelse i tinglysningen. «Fri handel» udelader familieoverdragelser og andre ikke-frie handler,
+  som ofte har kunstigt lave priser. m²-pris beregnes ud fra boligarealet; enkelte handler med afvigende
+  tinglyst areal er korrigeret. Siden henter friske tal ved hver indlæsning når den kører på Vercel eller
+  den lokale server (grøn prik); ellers vises det indlejrede øjebliksbillede.</p>
+  <p style="margin-top:10px" id="foot-gen"></p>
+</footer>
+</div>
+
+<div class="tip" id="tip" aria-hidden="true"></div>
+
+<script id="boligdata" type="application/json">__DATA__</script>
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById('boligdata').textContent);
+const tip = document.getElementById('tip');
+
+/* ---------- helpers ---------- */
+const kr = n => n==null||isNaN(n) ? "–" : new Intl.NumberFormat('da-DK').format(Math.round(n));
+const krM = n => n==null||isNaN(n) ? "–" : (n>=1e6 ? (n/1e6).toLocaleString('da-DK',{maximumFractionDigits:n>=1e7?0:1})+" mio." : kr(n));
+const MONTHS = ["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
+const MONTHS_LONG = ["Januar","Februar","Marts","April","Maj","Juni","Juli","August","September","Oktober","November","December"];
+function monthLong(k){ const [y,m]=k.split('-'); return MONTHS_LONG[+m-1]+" "+y; }
+function median(a){ if(!a.length) return null; const s=[...a].sort((x,y)=>x-y); const m=s.length>>1;
+  return s.length%2 ? s[m] : (s[m-1]+s[m])/2; }
+function mean(a){ return a.length ? a.reduce((s,x)=>s+x,0)/a.length : null; }
+function monthKey(d){ return d.slice(0,7); }
+function monthLabel(k){ const [y,m]=k.split('-'); return MONTHS[+m-1]+" "+y.slice(2); }
+
+function showTip(html,evt){ tip.innerHTML=html; tip.classList.add('on'); tip.setAttribute('aria-hidden','false'); moveTip(evt); }
+function moveTip(evt){
+  const pad=14, w=tip.offsetWidth, h=tip.offsetHeight;
+  let x=evt.clientX+pad, y=evt.clientY+pad;
+  if(x+w>innerWidth-8) x=evt.clientX-w-pad;
+  if(y+h>innerHeight-8) y=evt.clientY-h-pad;
+  tip.style.left=x+'px'; tip.style.top=y+'px';
+}
+function hideTip(){ tip.classList.remove('on'); tip.setAttribute('aria-hidden','true'); }
+
+const SVGNS="http://www.w3.org/2000/svg";
+function el(tag,attrs){ const e=document.createElementNS(SVGNS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); return e; }
+function clear(svg){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+function emptyMsg(svg){
+  const vb=(svg.getAttribute('viewBox')||'0 0 400 300').split(' ').map(Number);
+  const t=el('text',{x:vb[2]/2,y:vb[3]/2,'text-anchor':'middle'});
+  t.setAttribute('fill','var(--muted)'); t.style.fontSize='13px';
+  t.textContent='For få data i det valgte udsnit'; svg.appendChild(t);
+}
+
+/* ---------- state ---------- */
+let AREA="begge", HANDEL="alle", LIVE=false;
+const FILT = {
+  sold:{ amin:null, amax:null, mmin:null, mmax:null, from:"" },
+  sale:{ amin:null, amax:null, mmin:null, mmax:null, dommax:null }
+};
+const between=(v,lo,hi)=> (lo==null||v>=lo) && (hi==null||v<=hi);
+
+function soldRows(){
+  let rows = AREA==="frederiksberg" ? DATA.sold.frederiksberg
+          : AREA==="1799" ? DATA.sold.zip1799
+          : DATA.sold.frederiksberg.concat(DATA.sold.zip1799);
+  rows = rows.map(r=>{
+    const m2eff = r.m2calc || r.m2;
+    const m2flag = !(m2eff>=10000 && m2eff<=200000);
+    return Object.assign({}, r, {m2eff, m2flag, mkey:monthKey(r.date)});
+  });
+  if(HANDEL==="fri") rows = rows.filter(r=>r.type==="normal");
+  const f=FILT.sold;
+  rows = rows.filter(r=> between(r.area,f.amin,f.amax) && between(r.m2eff,f.mmin,f.mmax) && (!f.from || r.mkey>=f.from));
+  return rows;
+}
+function saleRows(){
+  let rows = AREA==="frederiksberg" ? DATA.forSale.frederiksberg
+          : AREA==="1799" ? DATA.forSale.zip1799
+          : DATA.forSale.frederiksberg.concat(DATA.forSale.zip1799);
+  rows = rows.map(r=>Object.assign({},r,{dom: r.daysOnMarket && typeof r.daysOnMarket==='object' ? r.daysOnMarket.days : r.daysOnMarket}));
+  const f=FILT.sale;
+  rows = rows.filter(r=> between(r.area,f.amin,f.amax) && between(r.m2,f.mmin,f.mmax) && (f.dommax==null || (r.dom!=null && r.dom<=f.dommax)));
+  return rows;
+}
+
+/* ---------- KPI ---------- */
+function kpiCard(label,val,sub){
+  return `<div class="kpi"><div class="k-label">${label}</div><div class="k-val">${val}</div><div class="k-sub">${sub||''}</div></div>`;
+}
+function renderKpisSold(rows){
+  const priced = rows.filter(r=>r.type==="normal" && !r.m2flag);
+  const m2 = priced.map(r=>r.m2eff).filter(Boolean);
+  const area = rows.map(r=>r.area).filter(Boolean);
+  const price = priced.map(r=>r.price).filter(Boolean);
+  const rng = m2.length ? kr(Math.min(...m2))+"–"+kr(Math.max(...m2)) : "–";
+  document.getElementById('kpi-sold').innerHTML =
+    kpiCard("Antal salg", kr(rows.length), HANDEL==="fri"?"kun fri handel":"alle handelstyper") +
+    kpiCard("Median m²-pris", (m2.length?kr(median(m2)):"–")+" kr", "fri handel · spænd "+rng) +
+    kpiCard("Median størrelse", (area.length?kr(median(area)):"–")+" m²", area.length?"største "+kr(Math.max(...area))+" m²":"") +
+    kpiCard("Median samlet pris", (price.length?krM(median(price)):"–")+" kr", "fri handel");
+}
+function renderKpisSale(rows){
+  const m2 = rows.map(r=>r.m2).filter(Boolean);
+  const area = rows.map(r=>r.area).filter(Boolean);
+  const price = rows.map(r=>r.price).filter(Boolean);
+  const dom = rows.map(r=>r.dom).filter(v=>v!=null);
+  document.getElementById('kpi-sale').innerHTML =
+    kpiCard("Antal til salg", kr(rows.length), "udbudte lige nu") +
+    kpiCard("Median m²-pris", (m2.length?kr(median(m2)):"–")+" kr", m2.length?"spænd "+kr(Math.min(...m2))+"–"+kr(Math.max(...m2)):"") +
+    kpiCard("Median størrelse", (area.length?kr(median(area)):"–")+" m²", area.length?"største "+kr(Math.max(...area))+" m²":"") +
+    kpiCard("Median liggetid", (dom.length?kr(median(dom)):"–")+" dage", dom.length?"længst "+kr(Math.max(...dom))+" dage":"");
+}
+
+/* ---------- chart: monthly volume ---------- */
+function chartVolume(rows){
+  const svg=document.getElementById('ch-vol'); clear(svg);
+  const W=800,H=300, m={t:20,r:8,b:34,l:40};
+  const byMonth={};
+  rows.forEach(r=>{ (byMonth[r.mkey]=byMonth[r.mkey]||[]).push(r); });
+  const keys=Object.keys(byMonth).sort();
+  if(!keys.length){ emptyMsg(svg); return; }
+  const all=[]; let k=keys[0];
+  const last=keys[keys.length-1];
+  while(k<=last){ all.push(k); const [y,mo]=k.split('-').map(Number);
+    k = mo===12 ? (y+1)+"-01" : y+"-"+String(mo+1).padStart(2,'0'); }
+  const counts=all.map(kk=>(byMonth[kk]||[]).length);
+  const maxC=Math.max(...counts,1);
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const bw=iw/all.length;
+  const g=el('g',{}); svg.appendChild(g);
+  // gridlines
+  const gg=el('g',{class:'grid'});
+  for(let i=0;i<=4;i++){ const yy=m.t+ih*(i/4); gg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:yy,y2:yy}));
+    const t=el('text',{x:m.l-6,y:yy+3,'text-anchor':'end'}); t.setAttribute('class',''); t.textContent=Math.round(maxC*(1-i/4)); gg.appendChild(t); }
+  gg.setAttribute('class','grid axis'); g.appendChild(gg);
+  all.forEach((kk,i)=>{
+    const c=(byMonth[kk]||[]).length;
+    const bh=ih*(c/maxC);
+    const x=m.l+i*bw+bw*0.16, y=m.t+ih-bh, w=bw*0.68;
+    const isPartial = i>=all.length-3;
+    const rect=el('rect',{x,y,width:w,height:Math.max(bh,c?1:0),rx:3,
+      fill: isPartial ? 'var(--sold-soft)' : 'var(--sold)', stroke: isPartial?'var(--sold)':'none','stroke-width':isPartial?1:0,'stroke-dasharray':isPartial?'2 2':'0'});
+    rect.setAttribute('class','bar');
+    const mrows=byMonth[kk]||[]; const mm=median(mrows.filter(r=>r.type==='normal'&&!r.m2flag).map(r=>r.m2eff).filter(Boolean));
+    rect.addEventListener('pointerenter',e=>showTip(
+      `<div class="t-h">${monthLabel(kk)}</div>
+       <div class="t-r"><span>Salg</span><span>${c}</span></div>
+       <div class="t-r"><span>Median m²-pris</span><span>${mm?kr(mm)+' kr':'–'}</span></div>
+       ${isPartial?'<div class="t-r"><span>ufuldstændig måned</span><span></span></div>':''}`,e));
+    rect.addEventListener('pointermove',moveTip);
+    rect.addEventListener('pointerleave',hideTip);
+    g.appendChild(rect);
+    if(i%3===0 || i===all.length-1){
+      const t=el('text',{x:m.l+i*bw+bw/2,y:H-m.b+16,'text-anchor':'middle'});
+      t.textContent=monthLabel(kk); const ax=el('g',{class:'axis'}); ax.appendChild(t); g.appendChild(ax);
+    }
+  });
+  const bl=el('line',{class:'baseline',x1:m.l,x2:W-m.r,y1:m.t+ih,y2:m.t+ih}); g.appendChild(bl);
+  document.getElementById('vol-lag').textContent = all.length>=3 ?
+    "De sidste 3 måneder ("+monthLabel(all[all.length-3])+"–"+monthLabel(last)+") er vist stiplet: handler mangler stadig at blive tinglyst." : "";
+}
+
+/* ---------- chart: median m2 trend (area) ---------- */
+function chartTrend(rows){
+  const svg=document.getElementById('ch-trend'); clear(svg);
+  const W=400,H=300,m={t:14,r:12,b:34,l:46};
+  const byMonth={};
+  rows.filter(r=>r.type==='normal'&&!r.m2flag).forEach(r=>{ (byMonth[r.mkey]=byMonth[r.mkey]||[]).push(r.m2eff); });
+  let keys=Object.keys(byMonth).sort();
+  if(keys.length<2){ emptyMsg(svg); return; }
+  // drop trailing months that are still filling in (well below typical volume)
+  const counts=keys.map(k=>byMonth[k].length);
+  const typical=median(counts);
+  while(keys.length>3 && byMonth[keys[keys.length-1]].length < typical*0.5) keys=keys.slice(0,-1);
+  const pts=keys.map(k=>({k, v:median(byMonth[k].filter(Boolean))}));
+  const vals=pts.map(p=>p.v);
+  const vmin=Math.min(...vals)*0.94, vmax=Math.max(...vals)*1.04;
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const X=i=>m.l+iw*(i/(pts.length-1));
+  const Y=v=>m.t+ih*(1-(v-vmin)/(vmax-vmin));
+  const g=el('g',{}); svg.appendChild(g);
+  const gg=el('g',{class:'grid axis'});
+  for(let i=0;i<=3;i++){ const v=vmin+(vmax-vmin)*(i/3); const yy=Y(v);
+    gg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:yy,y2:yy}));
+    const t=el('text',{x:m.l-6,y:yy+3,'text-anchor':'end'}); t.textContent=Math.round(v/1000)+"k"; gg.appendChild(t); }
+  g.appendChild(gg);
+  let d="M"+X(0)+","+Y(pts[0].v); pts.forEach((p,i)=>{ if(i) d+="L"+X(i)+","+Y(p.v); });
+  const area=d+"L"+X(pts.length-1)+","+(m.t+ih)+"L"+X(0)+","+(m.t+ih)+"Z";
+  g.appendChild(el('path',{d:area,fill:'var(--sold)','fill-opacity':.13}));
+  g.appendChild(el('path',{d,fill:'none',stroke:'var(--sold)','stroke-width':2,'stroke-linejoin':'round'}));
+  pts.forEach((p,i)=>{
+    const last=i===pts.length-1;
+    const c=el('circle',{cx:X(i),cy:Y(p.v),r:last?4:2.5,fill:'var(--sold)',stroke:'var(--surface)','stroke-width':last?2:1});
+    c.setAttribute('class','dot');
+    c.addEventListener('pointerenter',e=>showTip(`<div class="t-h">${monthLabel(p.k)}</div><div class="t-r"><span>Median m²-pris</span><span>${kr(p.v)} kr</span></div><div class="t-r"><span>Handler</span><span>${byMonth[p.k].length}</span></div>`,e));
+    c.addEventListener('pointermove',moveTip); c.addEventListener('pointerleave',hideTip);
+    g.appendChild(c);
+  });
+  [0,pts.length-1].forEach(i=>{ const t=el('text',{x:X(i),y:H-m.b+16,'text-anchor':i?'end':'start'});
+    t.textContent=monthLabel(pts[i].k); const ax=el('g',{class:'axis'}); ax.appendChild(t); g.appendChild(ax); });
+  g.appendChild(el('line',{class:'baseline',x1:m.l,x2:W-m.r,y1:m.t+ih,y2:m.t+ih}));
+}
+
+/* ---------- chart: histogram ---------- */
+function histogram(svgId,values,color,unit){
+  const svg=document.getElementById(svgId); clear(svg);
+  const W=400,H=300,m={t:26,r:12,b:38,l:38};
+  values=values.filter(v=>v!=null && !isNaN(v)).sort((a,b)=>a-b);
+  if(values.length<3){ emptyMsg(svg); return; }
+  const lo=values[Math.floor(values.length*0.02)], hi=values[Math.ceil(values.length*0.98)-1];
+  let step = unit==='kr' ? 5000 : 25;
+  let start=Math.floor(lo/step)*step, end=Math.ceil(hi/step)*step;
+  let nb=Math.max(1,Math.round((end-start)/step));
+  while(nb>40){ step*=2; start=Math.floor(lo/step)*step; end=Math.ceil(hi/step)*step; nb=Math.max(1,Math.round((end-start)/step)); }
+  const bins=new Array(nb).fill(0); let over=0, under=0;
+  values.forEach(v=>{ let b=Math.floor((v-start)/step); if(b<0){under++;b=0;} if(b>=nb){over++;b=nb-1;} bins[b]++; });
+  const maxB=Math.max(...bins,1);
+  const iw=W-m.l-m.r, ih=H-m.t-m.b, bw=iw/nb;
+  const g=el('g',{}); svg.appendChild(g);
+  const gg=el('g',{class:'grid axis'});
+  for(let i=0;i<=3;i++){ const yy=m.t+ih*(i/3); gg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:yy,y2:yy}));
+    const t=el('text',{x:m.l-6,y:yy+3,'text-anchor':'end'}); t.textContent=Math.round(maxB*(1-i/3)); gg.appendChild(t); }
+  g.appendChild(gg);
+  const med=median(values);
+  bins.forEach((c,i)=>{
+    const bh=ih*(c/maxB), x=m.l+i*bw+1.2, y=m.t+ih-bh, w=Math.max(bw-2.4,0.6);
+    const r=el('rect',{x,y,width:w,height:Math.max(bh,c?1:0),rx:2,fill:color});
+    r.setAttribute('class','bar');
+    const a=start+i*step, b=a+step;
+    r.addEventListener('pointerenter',e=>showTip(
+      `<div class="t-h">${kr(a)}–${kr(b)} ${unit}</div><div class="t-r"><span>Antal</span><span>${c}${i===nb-1&&over?` (+${over} over)`:''}</span></div>`,e));
+    r.addEventListener('pointermove',moveTip); r.addEventListener('pointerleave',hideTip);
+    g.appendChild(r);
+  });
+  // median marker
+  const mx=m.l+iw*((med-start)/(end-start));
+  if(mx>=m.l&&mx<=W-m.r){
+    g.appendChild(el('line',{x1:mx,x2:mx,y1:m.t-4,y2:m.t+ih,stroke:'var(--ink)','stroke-width':1,'stroke-dasharray':'3 3'}));
+    const lx=Math.max(m.l+2,Math.min(mx,W-m.r-2));
+    const tg=el('g',{class:'axis'});
+    const tt=el('text',{x:lx,y:m.t-11,'text-anchor':mx>W*0.7?'end':(mx<W*0.3?'start':'middle')});
+    tt.textContent='median '+kr(med)+(unit==='kr'?' kr':''); tt.style.fontSize='10px'; tt.style.fill='var(--ink-2)';
+    tg.appendChild(tt); g.appendChild(tg);
+  }
+  [start,end].forEach((v,i)=>{ const t=el('text',{x:i?W-m.r:m.l,y:H-m.b+17,'text-anchor':i?'end':'start'});
+    t.textContent=kr(v); const ax=el('g',{class:'axis'}); ax.appendChild(t); g.appendChild(ax); });
+  const lg=el('g',{class:'axis'}); const lt=el('text',{x:(m.l+W-m.r)/2,y:H-5,'text-anchor':'middle'});
+  lt.textContent = unit==='kr' ? 'kr pr. m² (boligareal)' : 'm²'; lt.style.fill='var(--muted)'; lg.appendChild(lt); g.appendChild(lg);
+  g.appendChild(el('line',{class:'baseline',x1:m.l,x2:W-m.r,y1:m.t+ih,y2:m.t+ih}));
+}
+
+/* ---------- chart: scatter size vs m2 ---------- */
+function chartScatter(rows){
+  const svg=document.getElementById('ch-scatter'); clear(svg);
+  const W=400,H=300,m={t:14,r:14,b:38,l:46};
+  const pts=rows.filter(r=>r.area&&r.m2).map(r=>({x:r.area,y:r.m2,r}));
+  if(pts.length<3){ emptyMsg(svg); return; }
+  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  const xmin=Math.min(...xs)-5, xmax=Math.max(...xs)+5;
+  const ymin=Math.min(...ys)*0.9, ymax=Math.max(...ys)*1.05;
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const X=v=>m.l+iw*((v-xmin)/(xmax-xmin));
+  const Y=v=>m.t+ih*(1-(v-ymin)/(ymax-ymin));
+  const g=el('g',{}); svg.appendChild(g);
+  const gg=el('g',{class:'grid axis'});
+  for(let i=0;i<=3;i++){ const v=ymin+(ymax-ymin)*(i/3), yy=Y(v);
+    gg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:yy,y2:yy}));
+    const t=el('text',{x:m.l-6,y:yy+3,'text-anchor':'end'}); t.textContent=Math.round(v/1000)+'k'; gg.appendChild(t); }
+  g.appendChild(gg);
+  pts.forEach(p=>{
+    const c=el('circle',{cx:X(p.x),cy:Y(p.y),r:4,fill:'var(--sale)','fill-opacity':.55,stroke:'var(--sale)','stroke-width':1});
+    c.setAttribute('class','dot');
+    c.addEventListener('pointerenter',e=>showTip(
+      `<div class="t-h">${p.r.addr}</div>
+       <div class="t-r"><span>Størrelse</span><span>${p.x} m²</span></div>
+       <div class="t-r"><span>m²-pris</span><span>${kr(p.y)} kr</span></div>
+       <div class="t-r"><span>Udbudspris</span><span>${krM(p.r.price)} kr</span></div>`,e));
+    c.addEventListener('pointermove',moveTip); c.addEventListener('pointerleave',hideTip);
+    g.appendChild(c);
+  });
+  [xmin,xmax].forEach((v,i)=>{ const t=el('text',{x:i?W-m.r:m.l,y:H-m.b+16,'text-anchor':i?'end':'start'});
+    t.textContent=Math.round(v)+' m²'; const ax=el('g',{class:'axis'}); ax.appendChild(t); g.appendChild(ax); });
+  g.appendChild(el('line',{class:'baseline',x1:m.l,x2:W-m.r,y1:m.t+ih,y2:m.t+ih}));
+}
+
+/* ---------- compare strip ---------- */
+function renderCompare(sold,sale){
+  const sN=sold.filter(r=>r.type==='normal' && !r.m2flag);
+  const rows=[
+    ['Median m²-pris', median(sN.map(r=>r.m2eff).filter(Boolean)), median(sale.map(r=>r.m2).filter(Boolean)), 'kr'],
+    ['Median samlet pris', median(sN.map(r=>r.price).filter(Boolean)), median(sale.map(r=>r.price).filter(Boolean)), 'krM'],
+    ['Median størrelse', median(sold.map(r=>r.area).filter(Boolean)), median(sale.map(r=>r.area).filter(Boolean)), 'm2'],
+  ];
+  const fmt=(v,u)=> u==='krM'?krM(v)+' kr' : u==='m2'? kr(v)+' m²' : kr(v)+' kr';
+  document.getElementById('compare').innerHTML = rows.map(([label,a,b,u])=>{
+    const d = a&&b ? (b-a)/a*100 : null;
+    const ds = d==null?'' : `<div class="delta">Udbudt ${d>=0?'+':''}${d.toFixed(1)} % ift. solgt</div>`;
+    return `<div class="cx"><div class="t">${label}</div>
+      <div class="rowline"><span>Solgt</span><span class="v">${fmt(a,u)}</span></div>
+      <div class="rowline"><span>Til salg</span><span class="v">${fmt(b,u)}</span></div>${ds}</div>`;
+  }).join('');
+}
+
+/* ---------- tables ---------- */
+const tblState={
+  sold:{k:'date',dir:-1,limit:30,q:''},
+  sale:{k:'price',dir:1,limit:30,q:''}
+};
+function bxLink(slug,label){ return `<a href="https://www.boligsiden.dk/adresse/${slug}" target="_blank" rel="noopener">${label}</a>`; }
+
+function renderSoldTable(rows){
+  const st=tblState.sold;
+  let r=rows.slice();
+  if(st.q){ const q=st.q.toLowerCase(); r=r.filter(x=>(x.addr+' '+x.zip).toLowerCase().includes(q)); }
+  r.sort((a,b)=>{ let va=a[st.k],vb=b[st.k]; if(st.k==='addr'||st.k==='type'){va=(''+va);vb=(''+vb);return va.localeCompare(vb)*st.dir;}
+    return ((va??-1)-(vb??-1))*st.dir; });
+  const tb=document.querySelector('#tbl-sold tbody');
+  const shown=r.slice(0,st.limit);
+  tb.innerHTML = shown.map(x=>{
+    const [y,mo,d]=x.date.split('-');
+    const typ = x.type==='normal'?'<span class="pill">Fri</span>' : x.type==='family'?'<span class="pill fam">Familie</span>':'<span class="pill fam">Anden</span>';
+    return `<tr>
+      <td>${bxLink(x.slug,x.addr)}</td>
+      <td class="num">${x.zip}</td>
+      <td class="num">${d}.${mo}.${y.slice(2)}</td>
+      <td class="num">${x.area} m²</td>
+      <td class="num">${kr(x.price)}</td>
+      <td class="num">${kr(x.m2eff)}${x.m2flag?' <span class="pill fam" title="Afvigende areal/pris – ikke medregnet i medianer">!</span>':''}</td>
+      <td>${typ}</td></tr>`;
+  }).join('') + (r.length>st.limit ? `<tr class="more-row"><td colspan="7"><button class="btn" id="more-sold">Vis flere (${r.length-st.limit})</button></td></tr>`
+    : `<tr class="more-row"><td colspan="7">${r.length} handler vist</td></tr>`);
+  const mb=document.getElementById('more-sold'); if(mb) mb.onclick=()=>{ st.limit+=50; renderSoldTable(rows); };
+  updateSortIndicators('#tbl-sold',st);
+}
+function renderSaleTable(rows){
+  const st=tblState.sale;
+  let r=rows.slice();
+  if(st.q){ const q=st.q.toLowerCase(); r=r.filter(x=>(x.addr+' '+x.zip).toLowerCase().includes(q)); }
+  r.sort((a,b)=>{ let va=a[st.k],vb=b[st.k]; if(st.k==='addr'||st.k==='energy'){va=(''+va);vb=(''+vb);return va.localeCompare(vb)*st.dir;}
+    if(st.k==='daysOnMarket'){va=a.dom;vb=b.dom;}
+    return ((va??-1)-(vb??-1))*st.dir; });
+  const tb=document.querySelector('#tbl-sale tbody');
+  const shown=r.slice(0,st.limit);
+  tb.innerHTML = shown.map(x=>{
+    const pc = x.priceChangePct;
+    const pcs = pc==null||pc===0 ? '<span class="pill">0 %</span>'
+      : `<span class="${pc<0?'down':'up'}">${pc>0?'+':''}${pc.toFixed(1)} %</span>`;
+    return `<tr>
+      <td>${bxLink(x.slug,x.addr)}</td>
+      <td class="num">${x.zip}</td>
+      <td class="num">${x.area} m²</td>
+      <td class="num">${kr(x.price)}</td>
+      <td class="num">${kr(x.m2)}</td>
+      <td class="num">${x.rooms??'–'}</td>
+      <td class="num">${x.yearBuilt??'–'}</td>
+      <td class="num">${x.energy?x.energy.toUpperCase().replace('A20','A20 '):'–'}</td>
+      <td class="num">${x.dom??'–'} d</td>
+      <td class="num">${pcs}</td></tr>`;
+  }).join('') + (r.length>st.limit ? `<tr class="more-row"><td colspan="10"><button class="btn" id="more-sale">Vis flere (${r.length-st.limit})</button></td></tr>`
+    : `<tr class="more-row"><td colspan="10">${r.length} boliger vist</td></tr>`);
+  const mb=document.getElementById('more-sale'); if(mb) mb.onclick=()=>{ st.limit+=50; renderSaleTable(rows); };
+  updateSortIndicators('#tbl-sale',st);
+}
+function updateSortIndicators(sel,st){
+  document.querySelectorAll(sel+' thead th').forEach(th=>{
+    if(th.dataset.k===st.k) th.setAttribute('aria-sort', st.dir===1?'ascending':'descending');
+    else th.removeAttribute('aria-sort');
+  });
+}
+function wireTable(sel,st,rerender){
+  document.querySelectorAll(sel+' thead th').forEach(th=>{
+    th.addEventListener('click',()=>{
+      const k=th.dataset.k;
+      if(st.k===k) st.dir*=-1; else { st.k=k; st.dir = (k==='addr')?1:-1; }
+      st.limit=30; rerender(); st._sync && st._sync();
+    });
+  });
+}
+function wireSort(selId,dirId,st,rerender){
+  const sel=document.getElementById(selId), db=document.getElementById(dirId);
+  st._sync=()=>{ if([...sel.options].some(o=>o.value===st.k)) sel.value=st.k;
+    db.textContent = st.dir===1 ? '↑ Stigende' : '↓ Faldende'; };
+  sel.addEventListener('change',()=>{ st.k=sel.value; st.dir=(st.k==='addr')?1:-1; st.limit=30; rerender(); st._sync(); });
+  db.addEventListener('click',()=>{ st.dir*=-1; st.limit=30; rerender(); st._sync(); });
+  st._sync();
+}
+const numOrNull=v=>{ v=(''+v).trim(); return v===''?null:(isNaN(+v)?null:+v); };
+let _drt; function debouncedRender(){ clearTimeout(_drt); _drt=setTimeout(render,180); }
+function wireFilters(){
+  // populate "Solgt fra" months
+  const months=[...new Set(DATA.sold.frederiksberg.concat(DATA.sold.zip1799).map(r=>r.date.slice(0,7)))].sort();
+  document.getElementById('fs-from').innerHTML =
+    '<option value="">Fra januar 2025</option>' + months.map(m=>`<option value="${m}">Fra ${monthLong(m).toLowerCase()}</option>`).join('');
+  const bindNum=(id,obj,key)=>document.getElementById(id).addEventListener('input',e=>{ obj[key]=numOrNull(e.target.value); debouncedRender(); });
+  bindNum('fs-amin',FILT.sold,'amin'); bindNum('fs-amax',FILT.sold,'amax');
+  bindNum('fs-mmin',FILT.sold,'mmin'); bindNum('fs-mmax',FILT.sold,'mmax');
+  document.getElementById('fs-from').addEventListener('change',e=>{ FILT.sold.from=e.target.value; render(); });
+  document.getElementById('fs-reset').addEventListener('click',()=>{
+    Object.assign(FILT.sold,{amin:null,amax:null,mmin:null,mmax:null,from:""});
+    ['fs-amin','fs-amax','fs-mmin','fs-mmax','fs-from'].forEach(i=>document.getElementById(i).value='');
+    render();
+  });
+  bindNum('fl-amin',FILT.sale,'amin'); bindNum('fl-amax',FILT.sale,'amax');
+  bindNum('fl-mmin',FILT.sale,'mmin'); bindNum('fl-mmax',FILT.sale,'mmax');
+  bindNum('fl-dommax',FILT.sale,'dommax');
+  document.getElementById('fl-reset').addEventListener('click',()=>{
+    Object.assign(FILT.sale,{amin:null,amax:null,mmin:null,mmax:null,dommax:null});
+    ['fl-amin','fl-amax','fl-mmin','fl-mmax','fl-dommax'].forEach(i=>document.getElementById(i).value='');
+    render();
+  });
+}
+
+/* ---------- CSV ---------- */
+function toCsv(rows,cols){
+  const head=cols.map(c=>c[0]).join(';');
+  const body=rows.map(r=>cols.map(c=>{ let v=c[1](r); if(typeof v==='string'&&/[;"\n]/.test(v)) v='"'+v.replace(/"/g,'""')+'"'; return v; }).join(';')).join('\n');
+  return head+'\n'+body;
+}
+async function copyCsv(text,btn){
+  const done=()=>{ const o=btn.dataset.o||btn.textContent; btn.dataset.o=o; btn.textContent='Kopieret ✓'; setTimeout(()=>btn.textContent=o,1600); };
+  try{ await navigator.clipboard.writeText(text); done(); return; }catch(e){}
+  try{ const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); done(); }
+  catch(e){ btn.textContent='Kunne ikke kopiere'; }
+}
+
+/* ---------- master render ---------- */
+function render(){
+  const sold=soldRows(), sale=saleRows();
+
+  document.getElementById('m-sold').textContent=kr(DATA.sold.frederiksberg.length+DATA.sold.zip1799.length);
+  document.getElementById('m-sale').textContent=kr(DATA.forSale.frederiksberg.length+DATA.forSale.zip1799.length);
+  const gen=new Date(DATA.generated);
+  document.getElementById('m-date').textContent = (LIVE?'Live · opdateret ':'Data hentet ')
+    + gen.toLocaleString('da-DK',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('foot-gen').textContent =
+    (LIVE?'Hentet live fra ':'Snapshot genereret '+gen.toLocaleString('da-DK')+' — ') + DATA.source
+    + (LIVE?' '+gen.toLocaleString('da-DK'):'');
+
+  renderKpisSold(sold);
+  renderKpisSale(sale);
+
+  const sm=sold.map(r=>r.mkey).sort();
+  document.getElementById('sold-range').textContent = sm.length ? `${sold.length} handler · ${monthLabel(sm[0])} – ${monthLabel(sm[sm.length-1])}` : 'ingen handler matcher filteret';
+  document.getElementById('sale-range').textContent = sale.length ? `${sale.length} boliger udbudt` : 'ingen boliger matcher filteret';
+  const anyFilt=o=>Object.values(o).some(v=>v!=null && v!=='');
+  document.getElementById('fs-count').textContent = anyFilt(FILT.sold) ? `${sold.length} match` : '';
+  document.getElementById('fl-count').textContent = anyFilt(FILT.sale) ? `${sale.length} match` : '';
+
+  chartVolume(sold);
+  chartTrend(sold);
+  histogram('ch-hist-sold', sold.filter(r=>r.type==='normal'&&!r.m2flag).map(r=>r.m2eff), 'var(--sold)', 'kr');
+  histogram('ch-hist-sale', sale.map(r=>r.m2), 'var(--sale)', 'kr');
+  chartScatter(sale);
+  renderCompare(sold,sale);
+
+  const fam=sold.filter(r=>r.type!=='normal').length;
+  const atyp=sold.filter(r=>r.type==='normal' && r.m2flag).length;
+  const fn=document.getElementById('fam-note');
+  const parts=[];
+  if(fam>0) parts.push(`<b>${fam}</b> ${fam===1?'handel er en familieoverdragelse eller anden ikke-fri handel':'handler er familieoverdragelser eller andre ikke-frie handler'}`);
+  if(atyp>0) parts.push(`<b>${atyp}</b> ${atyp===1?'handel har':'handler har'} afvigende tinglyst areal/pris (m²-pris uden for 10.000–200.000 kr, markeret <span class="pill fam">!</span>)`);
+  if(parts.length && (HANDEL==='alle' || atyp>0)){
+    fn.style.display='';
+    fn.innerHTML = parts.join(', og ') + `. Alt vises i tabellen og tælles med i «antal salg», men holdes ude af median-priser og prisgrafer.`
+      + (HANDEL==='alle' && fam>0 ? ` Vælg «Kun fri handel» i bjælken for helt at udelade familieoverdragelser.` : ``);
+  } else { fn.style.display='none'; }
+
+  renderSoldTable(sold);
+  renderSaleTable(sale);
+
+  document.getElementById('csv-sold').onclick=e=>copyCsv(
+    toCsv(sold,[['adresse',r=>r.addr],['postnr',r=>r.zip],['solgt',r=>r.date],['stoerrelse_m2',r=>r.area],
+      ['samlet_pris',r=>r.price],['m2_pris',r=>r.m2eff],['handelstype',r=>r.type]]), e.target);
+  document.getElementById('csv-sale').onclick=e=>copyCsv(
+    toCsv(sale,[['adresse',r=>r.addr],['postnr',r=>r.zip],['stoerrelse_m2',r=>r.area],['udbudspris',r=>r.price],
+      ['m2_pris',r=>r.m2],['vaerelser',r=>r.rooms],['opfoert',r=>r.yearBuilt],['energi',r=>r.energy],
+      ['liggetid_dage',r=>r.dom],['prisaendring_pct',r=>r.priceChangePct]]), e.target);
+}
+
+/* ---------- wire controls ---------- */
+function wireSeg(id,cb){
+  const seg=document.getElementById(id);
+  seg.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    seg.querySelectorAll('button').forEach(x=>x.setAttribute('a-current','false'));
+    b.setAttribute('a-current','true'); cb(b.dataset.v);
+  }));
+}
+wireSeg('seg-area',v=>{ AREA=v; render(); });
+wireSeg('seg-handel',v=>{ HANDEL=v; render(); });
+document.getElementById('q-sold').addEventListener('input',e=>{ tblState.sold.q=e.target.value; tblState.sold.limit=30; renderSoldTable(soldRows()); });
+document.getElementById('q-sale').addEventListener('input',e=>{ tblState.sale.q=e.target.value; tblState.sale.limit=30; renderSaleTable(saleRows()); });
+wireSort('sort-sold','dir-sold',tblState.sold,()=>renderSoldTable(soldRows()));
+wireSort('sort-sale','dir-sale',tblState.sale,()=>renderSaleTable(saleRows()));
+wireTable('#tbl-sold',tblState.sold,()=>renderSoldTable(soldRows()));
+wireTable('#tbl-sale',tblState.sale,()=>renderSaleTable(saleRows()));
+wireFilters();
+
+let rt; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{ const s=soldRows(),l=saleRows();
+  chartVolume(s);chartTrend(s);
+  histogram('ch-hist-sold',s.filter(r=>r.type==='normal'&&!r.m2flag).map(r=>r.m2eff),'var(--sold)','kr');
+  histogram('ch-hist-sale',l.map(r=>r.m2),'var(--sale)','kr');chartScatter(l); },150); });
+
+render();
+
+/* ---------- live refresh -----------------------------------------------------
+   Tries /api/live (Vercel serverless) then live.json (local serve.ps1).
+   On plain static hosting neither exists -> the embedded snapshot stays. ------ */
+(async function liveRefresh(){
+  const dot=document.getElementById('m-dot');
+  const endpoints=['/api/live','live.json'];
+  dot.className='dot-load';
+  for(const url of endpoints){
+    try{
+      const ctrl = 'AbortController' in window ? new AbortController() : null;
+      const to = ctrl ? setTimeout(()=>ctrl.abort(), 20000) : null;
+      const r = await fetch(url, {cache:'no-store', signal: ctrl && ctrl.signal});
+      if(to) clearTimeout(to);
+      if(!r.ok) continue;
+      const fresh = await r.json();
+      if(!fresh || !fresh.sold || !fresh.forSale || !fresh.sold.frederiksberg) continue;
+      DATA.sold = fresh.sold; DATA.forSale = fresh.forSale;
+      DATA.generated = fresh.generated || new Date().toISOString();
+      DATA.source = fresh.source || DATA.source;
+      LIVE = true; render(); dot.className='dot-live';
+      return;
+    }catch(e){ /* try next endpoint */ }
+  }
+  dot.className='dot-idle';   // keep the embedded snapshot
+})();
+</script>
